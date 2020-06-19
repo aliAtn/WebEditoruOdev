@@ -26,7 +26,7 @@ var element = "";
 
 CEVAP: 23514624000
 
----
+------------------------------------------------------------------------------------------------------------------------------
 
 Soru: 18
 Soru Adı: Maximum path sum I
@@ -47,7 +47,7 @@ console.log(sum);
 
 CEVAP: 1074
 
----
+-------------------------------------------------------------------------------------------------------------------------------
 
 Soru: 28
 Soru Adı: Number spiral diagonals
@@ -70,7 +70,77 @@ d = d + 2
 
 console.log("Çaprazların toplamı: " + sum);
 
-## CEVAP: 669171001
+ CEVAP: 669171001
+
+-----------------------------------------------------------------------------------------------------------------------------------
+Soru: 68 
+Soru Adı: Magic 5-gon ring
+
+1-10 arasındaki sayıları kullanarak ve düzenlemelere bağlı olarak, 16 ve 17 basamaklı dizeler oluşturmamız mümkündür. Bir beşgen halka için maksimum 16 haneli dizeyi istemiştir
+
+
+
+const _in_ = (e, ...es) => es.indexOf(e) !== -1
+let R = "0000000000000000" 
+for (let s = 7; s <= 27; s++) { 
+ let q = false
+ for (let a = 1; a <= 10 && !q; a++)
+  for (let b = 1; b <= 10; b++)
+   if (!_in_(b, a))
+    for (let c = 1; c <= 10; c++)
+     if (!_in_(c, a, b) && a + b + c === s)
+      for (let d = 1; d <= 10; d++)
+       if (!_in_(d, a, b, c))
+        for (let e = 1; e <= 10; e++)
+         if (!_in_(e, a, b, c, d) && d + c + e === s)
+          for (let f = 1; f <= 10; f++)
+           if (!_in_(f, a, b, c, d, e))
+            for (let g = 1; g <= 10; g++)
+             if (!_in_(g, a, b, c, d, e, f) && f + e + g === s)
+              for (let h = 1; h <= 10; h++)
+               if (!_in_(h, a, b, c, d, e, f, g))
+                for (let i = 1; i <= 10; i++)
+                 if (!_in_(i, a, b, c, d, e, f, g, h) && h + g + i === s)
+                  for (let j = 1; j <= 10; j++) { 
+                   if (!_in_(j, a, b, c, d, e, f, g, h, i) && j + i + b === s) 
+{ 
+                    let r = [a, b, c, d, c, e, f, e, g, h, g, i, j, i, b].join("") 
+                    q = true 
+                    if (R.localeCompare(r) === -1) R = r 
+                  }}} 
+
+console.log(R)
+
+CEVAP: 6531031914842725
+-------------------------------------------------------------------------------------------------------------------------------------
+Soru: 58
+Soru Adı: spiral primes
+Verilen spiralin etrafına bir tam yeni tabaka sarılırsa, yan uzunluğu 9 olan bir kare spiral oluşturulacaktır. Bu işleme devam edilirse, her iki diyagonal boyunca prim oranının ilk önce %10'un altına düştüğü kare spiralin yan uzunluğunu bulmamız istenmiştir.
+
+
+var ms = Date.now();
+
+const side = n => 2*n+1 
+const corners = n => [side(n)*side(n) - 2*n,side(n)*side(n) - 4*n,side(n)*side(n) - 6*n] 
+const primes = n => corners(n).filter(isprime).length 
+
+function isprime(i) {
+     for (var n=3;n*n<=i ;n+=2 ) if (i%n == 0) return false; 
+     return true 
+} 
+var total=0,n=0 
+do { 
+      total += primes(++n) 
+} 
+while (10*total > 4*n+1); 
+
+console.log(side(n)) 
+
+
+
+CEVAP: 26241
+-------------------------------------------------------------------------------------------------------------------------------------
+
 
 PROJE-3 LEETCODE
 
@@ -98,7 +168,7 @@ GİRDİ: “patates”
 ARANAN: “ta”
 ÇIKTI: 2
 
----
+-----------------------------------------------------------------------------------------------------------------------------
 
 Soru: 938
 Soru Adı: Range Sum of BST
@@ -119,7 +189,7 @@ return sum + rangeSumBST(root.left, L, R) + rangeSumBST(root.right, L, R);
 GİRDİ: [8,11,16,19,24,null,31,36,40 ] L=11 R=31
 ÇIKTI: 101
 
----
+-----------------------------------------------------------------------------------------------------------------------------------
 
 Soru: 1108
 Soru Adı: Defanging an IP Address
@@ -134,5 +204,69 @@ return addressArray.join('[.]');
 GİRDİ: "1.1.1.1"
 ÇIKTI: "1[.]1[.]1[.]1"
 
----
+--------------------------------------------------------------------------------------------------------------------------------
+
+Soru: 728
+Soru Adı: Self Dividing Numbers
+Verilen sol ve sağ değerler arasında öz bölünen sayıların bulunması istenmiştir. (öz bölünen: kendini oluşturan rakamlarla bölümünden kalan sıfır olan sayılardır. Örneğin 128 sayısı 1, 2 ve 8 rakamlarından oluşur ve bu rakamların 128’e bölümünden kalan 0’dır) 
+
+var selfDividingNumbers = function(left, right) {
+    
+    let selfDividing = true;
+    let result = [];
+
+    for(left; left <= right; left++){
+        let numbers = left.toString().split('');
+        if (!numbers.includes('0')){         
+            for (let k = 0; k < numbers.length; k++){
+                if (left % parseInt(numbers[k]) !== 0) {
+                    selfDividing = false;
+                    break;
+                }
+            }
+            if (selfDividing == true){
+                result.push(left);
+            }
+            selfDividing = true;
+        } 
+    }
+    
+    return result;
+};
+
+GİRDİ: sol değer:5 sağ değer:78
+ÇIKTI: [5,6,7,8,9,11,12,15,22,24,33,36,44,48,55,66,77] 
+------------------------------------------------------------------------------------------------------------------------------------
+
+Soru: 1408
+Soru Adı: String Matching in an Array
+
+Kelime1 ve kelime2 olmak üzere iki ana kelime içinde diğer kelimelerin geçip geçmediğini kontrol eden bir kod yazılması istenmiştir. (örnek, salatalık ana kelimesinin içinde al kelimesi geçiyor ise o kelimeyi yazdırır. )
+
+var stringMatching = function(words) {
+    
+    words.sort((a,b)=>a.length-b.length)
+	
+    let res =[]
+    for(var i=0; i < words.length; i++){
+        let target = words[i]
+       for(var j = i+1; j <words.length;j++){
+           if(words[j].includes(target)){
+               res.push(target)
+               break
+           }
+       }
+    }
+    console.log(res)
+    return res
+    
+};
+
+
+GİRDİ: ["patates","ata","gel","gelinlik"]
+ÇIKTI: ["ata", "gel"]
+
+
+
+
 
